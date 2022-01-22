@@ -1,0 +1,54 @@
+- name: Create directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    recurse: yes
+  with_items:
+    - "/vagrant/irix/{{ irixversion }}/Foundation/disc1"
+    - "/vagrant/irix/{{ irixversion }}/Development/devfoundations"
+
+# check 5.3 paths
+
+- name: Check foundation disc 1
+  stat:
+    path: "/vagrant/irix/{{ irixversion }}/Foundation/disc1/dist"
+  register: fd1
+
+- name: Check development foundations
+  stat:
+    path: "/vagrant/irix/{{ irixversion }}/Development/devfoundations/dist"
+  register: devf
+
+# fetch 5.3 files
+
+- name: Fetch foundation disc 1
+  get_url:
+    url: "{{ foundation_baseurl }}{{ foundation_disc1 }}"
+    dest: "/vagrant/irix/{{ irixversion }}/Foundation/disc1/{{ foundation_disc1 }}"
+  when: not fd1.stat.exists
+
+- name: Fetch development foundations
+  get_url:
+    url: "{{ devel_baseurl }}{{ devel_devfoundations }}"
+    dest: "/vagrant/irix/{{ irixversion }}/Development/devfoundations/{{ devel_devfoundations }}"
+  when: not devf.stat.exists
+
+# Extract 5.3 files
+
+- name: Extracting foundation disc 1
+  unarchive:
+    src: "/vagrant/irix/{{ irixversion }}/Foundation/disc1/{{ foundation_disc1 }}"
+    dest: "/vagrant/irix/{{ irixversion }}/Foundation/disc1/"
+    copy: no
+    extra_opts:
+    - --strip-components=1
+    creates: "/vagrant/irix/{{ irixversion }}/Foundation/disc1/RELEASE.info"
+
+- name: Extracting development foundations
+  unarchive:
+    src: "/vagrant/irix/{{ irixversion }}/Development/devfoundations/{{ devel_devfoundations }}"
+    dest: "/vagrant/irix/{{ irixversion }}/Development/devfoundations/"
+    copy: no
+    extra_opts:
+    - --strip-components=1
+    creates: "/vagrant/irix/{{ irixversion }}/Development/devfoundations/CDrelnotes"

@@ -16,6 +16,9 @@
   notify:
     - reboot host
 
+- name: expand rootfs
+  command: "raspi-config --expand-rootfs"
+
 # - name: update /boot/config.txt
 #   lineinfile:
 #     dest: /boot/config.txt

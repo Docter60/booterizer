@@ -13,6 +13,9 @@
 - import_tasks: setup_internal_ansible.yml
 #-------- Setup Media
 - import_tasks: setup_media.yml
+  when: irixversion != "5.3"
+- import_tasks: setup_media_5.3.yml
+  when: irixversion == "5.3"
 #-------- rsync media to /irix
 - import_tasks: symlink_to_irix.yml
 #--------- Generate selections

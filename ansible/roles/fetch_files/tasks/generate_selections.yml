@@ -14,4 +14,13 @@
     owner: root
     group: root
     mode: 0744
-  when: rpi is defined
+  when: rpi is defined and irixversion != "5.3"
+
+- name: Generate 5.3 selections for pi
+  template:
+    src: templates/selections_5.3.j2
+    dest: /irix/selections
+    owner: root
+    group: root
+    mode: 0744
+  when: rpi is defined and irixversion == "5.3"
