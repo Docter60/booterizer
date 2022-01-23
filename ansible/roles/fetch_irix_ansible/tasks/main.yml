@@ -1,16 +1,20 @@
 - name: Install irix_ansible
   git:
     repo: 'https://github.com/docter60/irix_ansible.git'
-    dest: /home/pi/{{ clientname }}
+    dest: /home/pi/irix_ansible
     update: yes
     clone: yes
 - name: Fix repo perms
-  shell: chown -R pi:pi /home/pi/{{ clientname }}/irix_ansible
+  file:
+    path: /home/pi/irix_ansible
+    owner: pi
+    group: pi
+    recurse: yes
   become: true
 - name: Fix up inventory.yml
   template:
     src: templates/inventory.yml.j2
-    dest: /home/pi/{{ clientname }}/irix_ansible/inventory.yml
+    dest: /home/pi/irix_ansible/inventory.yml
     owner: pi
     group: pi
     mode: 644

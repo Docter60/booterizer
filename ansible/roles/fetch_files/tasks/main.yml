@@ -10,7 +10,7 @@
 #------- Setup Apps
 - import_tasks: setup_apps.yml
 #------- Setup internal Ansible
-- import_tasks: setup_internal_ansible.yml
+#- import_tasks: setup_internal_ansible.yml
 #-------- Setup Media
 - import_tasks: setup_media.yml
   when: irixversion != "5.3"

@@ -6,7 +6,7 @@ booterizer:
   clientdomain:   "home.local"
   network:        "192.168.1.0" 
   netmask:        "255.255.255.0"
-  hostip:         "192.168.1.17"
+  hostip:         "192.168.1.55"
   clientip:       "192.168.1.152"
   clientether:    "08:00:69:13:68:da"
   bridgenic:      "eth0"

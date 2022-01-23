@@ -1,12 +1,10 @@
 ---
-- name: Copy settings into the VM
+- name: run fetch_irix_ansible role
   hosts: all
   tasks:
-  - import_role:
+  - include_vars:
      name: settings
-- name: run fetch_files role
-  hosts: all
-  tasks:
+     file: ../settings.yml
   - import_role:
-     name: fetch_files
+     name: fetch_irix_ansible
     become: true
